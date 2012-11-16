@@ -61,3 +61,14 @@ GLuint Program::getAttribLocation(const char *name)
 	
 	return attrib;
 }
+
+void Program::setUniformMatrix(const char *name, Maths::Matrix &matrix)
+{
+	use();
+
+	GLint uniform = glGetUniformLocation(id, name);
+	if (uniform == -1)
+		cerr << "Warning: No uniform named '" << name << "' found." << endl;
+	else
+		glUniformMatrix4fv(uniform, 1, GL_FALSE, &matrix.data()[0]);
+}

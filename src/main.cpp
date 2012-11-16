@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include "gl.hpp"
+#include "maths.hpp"
 #include "program.hpp"
 #include "shader.hpp"
 
@@ -46,6 +47,13 @@ int main(int argc, const char *argv[])
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(program.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(program.getAttribLocation("position"));
+
+	// Set up the modelview and projection matrices
+	Maths::Matrix projection = Maths::perspectiveProjection(45, 800.0f / 600, 1, 100);
+	Maths::Matrix modelview = Maths::IdentityMatrix(4);
+	modelview(2, 3) = -5;
+	program.setUniformMatrix("projection", projection);
+	program.setUniformMatrix("modelview", modelview);
 
 	// Enter main event loop
 	int running = GL_TRUE;

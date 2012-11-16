@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 #include "gl.hpp"
+#include "maths.hpp"
 #include "shader.hpp"
 
 class ProgramLinkException : public std::exception {};
@@ -15,6 +16,7 @@ public:
 	~Program();
 	void use();
 	GLuint getAttribLocation(const char *name);
+	void setUniformMatrix(const char *name, Maths::Matrix &matrix);
 
 private:
 	Program(const Program &);
