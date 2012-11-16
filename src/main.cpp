@@ -51,7 +51,8 @@ int main(int argc, const char *argv[])
 	// Set up the modelview and projection matrices
 	Maths::Matrix projection = Maths::perspectiveProjection(45, 800.0f / 600, 1, 100);
 	Maths::Matrix modelview = Maths::IdentityMatrix(4);
-	modelview(2, 3) = -5;
+	modelview(2, 3) = -2;
+	modelview = prod(modelview, Maths::rotationMatrix(M_PI / 4, 0, 1, 0));
 	program.setUniformMatrix("projection", projection);
 	program.setUniformMatrix("modelview", modelview);
 
