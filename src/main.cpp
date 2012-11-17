@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "gl.hpp"
@@ -27,6 +28,17 @@ int main(int argc, const char *argv[])
 
 	// Set the main window title
 	glfwSetWindowTitle("Dino Forts");
+	
+	// Initialise GLEW
+	#ifdef __MINGW32__
+		glewExperimental = GL_TRUE;
+		GLenum err = glewInit();
+		if (err != GLEW_OK) {
+			cerr << "Unable to initialize GLEW: " << glewGetErrorString(err) << endl;
+			return EXIT_FAILURE;
+		}
+		cout << "Using GLEW " << glewGetString(GLEW_VERSION) << endl;
+	#endif
 
 	// Load and compile the shaders
 	ShaderPtr vertex_shader(new Shader("assets/shaders/test.vs", GL_VERTEX_SHADER));

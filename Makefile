@@ -3,7 +3,7 @@ VPATH      += src
 CXXFLAGS   += -Wall -Werror
 LDFLAGS    += -Wall -Werror
 
--include $(shell echo Makefile_`uname`)
+include $(shell echo Makefile_`uname`)
 
 .PHONY: all clean run
 
