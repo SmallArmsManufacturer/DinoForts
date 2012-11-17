@@ -1,7 +1,9 @@
 EXECUTABLE  = DinoForts
 VPATH      += src
-CXXFLAGS   += -Wall -Werror -std=c++11 -stdlib=libc++
-LDFLAGS    += -Wall -Werror -std=c++11 -stdlib=libc++ -framework OpenGL -lglfw
+CXXFLAGS   += -Wall -Werror
+LDFLAGS    += -Wall -Werror
+
+-include $(shell echo Makefile_`uname`)
 
 .PHONY: all clean run
 
@@ -14,7 +16,7 @@ run: $(EXECUTABLE)
 	./$(EXECUTABLE)
 
 $(EXECUTABLE): $(patsubst src/%.cpp, %.o, $(wildcard src/*.cpp))
-	$(CXX) $(LDFLAGS) $^ -o $@
+	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.d: src/%.cpp
 	$(CXX) $(CXXFLAGS) -MM $< > $@
