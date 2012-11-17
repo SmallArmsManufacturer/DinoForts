@@ -1,6 +1,7 @@
 #include <cstdlib>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "gl.hpp"
-#include "maths.hpp"
 #include "program.hpp"
 #include "shader.hpp"
 
@@ -49,10 +50,9 @@ int main(int argc, const char *argv[])
 	glEnableVertexAttribArray(program.getAttribLocation("position"));
 
 	// Set up the modelview and projection matrices
-	Maths::Matrix projection = Maths::perspectiveProjection(45, 800.0f / 600, 1, 100);
-	Maths::Matrix modelview = Maths::IdentityMatrix(4);
-	modelview(2, 3) = -2;
-	modelview = prod(modelview, Maths::rotationMatrix(M_PI / 4, 0, 1, 0));
+	glm::mat4 projection = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 100.0f);
+	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
+	modelview = glm::rotate(modelview, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	program.setUniformMatrix("projection", projection);
 	program.setUniformMatrix("modelview", modelview);
 

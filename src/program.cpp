@@ -1,5 +1,6 @@
 #include "program.hpp"
 
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
 using namespace std;
@@ -62,7 +63,7 @@ GLuint Program::getAttribLocation(const char *name)
 	return attrib;
 }
 
-void Program::setUniformMatrix(const char *name, Maths::Matrix &matrix)
+void Program::setUniformMatrix(const char *name, glm::mat4 &matrix)
 {
 	use();
 
@@ -70,5 +71,5 @@ void Program::setUniformMatrix(const char *name, Maths::Matrix &matrix)
 	if (uniform == -1)
 		cerr << "Warning: No uniform named '" << name << "' found." << endl;
 	else
-		glUniformMatrix4fv(uniform, 1, GL_FALSE, &matrix.data()[0]);
+		glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(matrix));
 }
