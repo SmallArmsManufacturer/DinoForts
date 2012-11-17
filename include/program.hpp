@@ -27,3 +27,4 @@ private:
 };
 
 typedef std::shared_ptr<Program> ProgramPtr;
+typedef std::weak_ptr<Program> ProgramWeakPtr;

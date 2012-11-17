@@ -22,3 +22,4 @@ private:
 };
 
 typedef std::shared_ptr<Shader> ShaderPtr;
+typedef std::weak_ptr<Shader> ShaderWeakPtr;
