@@ -1,9 +1,10 @@
-EXECUTABLE  = DinoForts
+EXECUTABLE := DinoForts
 VPATH      += src
 CXXFLAGS   += -Wall -Werror
 LDFLAGS    += -Wall -Werror
+UNAME      := $(shell uname)
 
-include $(shell echo Makefile_`uname`)
+include $(shell echo Makefile_$(UNAME))
 
 .PHONY: all clean run
 
