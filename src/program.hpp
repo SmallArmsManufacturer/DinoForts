@@ -16,6 +16,7 @@ public:
 	~Program();
 	void use();
 	GLuint getAttribLocation(const char *name);
+	void setUniformMatrix(const char *name, glm::mat3 &matrix);
 	void setUniformMatrix(const char *name, glm::mat4 &matrix);
 
 private:

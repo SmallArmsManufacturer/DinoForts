@@ -56,17 +56,26 @@ int main(int argc, const char *argv[])
 	glBindVertexArray(vao);
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	GLfloat vertices[] = { 0, 1, 0, 1, -1, 0, -1, -1, 0 };
+	GLfloat vertices[] = {  0,  1,  0,   // Vertex 1 position
+	                        0,  0,  -1,   // Vertex 1 normal
+	                        1, -1,  0,   // Vertex 2 position
+	                        0,  0,  -1,   // Vertex 2 normal
+	                       -1, -1,  0,   // Vertex 3 position
+	                        0,  0,  -1 }; // Vertex 3 normal
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(program.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(program.getAttribLocation("position"));
+	glVertexAttribPointer(program.getAttribLocation("in_Position"), 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
+	glEnableVertexAttribArray(program.getAttribLocation("in_Position"));
+	glVertexAttribPointer(program.getAttribLocation("in_Normal"), 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *) (3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(program.getAttribLocation("in_Normal"));
 
 	// Set up the modelview and projection matrices
 	glm::mat4 projection = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 100.0f);
 	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
 	modelview = glm::rotate(modelview, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat3 normalmatrix = glm::transpose(glm::inverse(glm::mat3(modelview)));
 	program.setUniformMatrix("projection", projection);
 	program.setUniformMatrix("modelview", modelview);
+	program.setUniformMatrix("normalmatrix", normalmatrix);
 
 	// Enter main event loop
 	int running = GL_TRUE;
