@@ -1,6 +1,6 @@
 #version 150
 
-uniform mat4 modelview, projection, normalmatrix;
+uniform mat4 modelview;
 
 in vec3 normal;
 
