@@ -52,15 +52,15 @@ void Program::use()
 	glUseProgram(id);
 }
 
-GLuint Program::getAttribLocation(const char *name)
+void Program::setAttribLocation(const char *name, GLuint location)
 {
 	use();
 
 	GLint attrib = glGetAttribLocation(id, name);
 	if (attrib == -1)
 		cerr << "Warning: No attribute named '" << name << "' found." << endl;
-	
-	return attrib;
+	else
+		glBindAttribLocation(id, location, name);
 }
 
 void Program::setUniformMatrix(const char *name, glm::mat3 &matrix)

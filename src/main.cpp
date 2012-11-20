@@ -21,7 +21,7 @@ int main(int argc, const char *argv[])
 	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create the main window
-	if (!glfwOpenWindow(800, 600, 0, 0, 0, 0, 0, 0, GLFW_WINDOW))
+	if (!glfwOpenWindow(800, 600, 8, 8, 8, 8, 24, 8, GLFW_WINDOW))
 	{
 		glfwTerminate();
 		return EXIT_FAILURE;
@@ -51,23 +51,35 @@ int main(int argc, const char *argv[])
 	shaders.push_back(fragment_shader);
 	Program program(shaders);
 
+	// Set up the attribute indices
+	program.setAttribLocation("in_Position", 0);
+	program.setAttribLocation("in_Normal", 1);
+
 	// Set up the triangle vertex array
 	Mesh mesh;
 
 	// Set up the modelview and projection matrices
 	glm::mat4 projection = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 100.0f);
 	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
-	modelview = glm::rotate(modelview, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat3 normalmatrix = glm::transpose(glm::inverse(glm::mat3(modelview)));
+	glm::mat3 normalmatrix;
 	program.setUniformMatrix("projection", projection);
-	program.setUniformMatrix("modelview", modelview);
-	program.setUniformMatrix("normalmatrix", normalmatrix);
+
+	// Enable backface culling
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
 
 	// Enter main event loop
 	int running = GL_TRUE;
+	double prevTime = glfwGetTime();
 	while(running)
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		double dt = glfwGetTime() - prevTime;
+		prevTime += dt;
+		modelview = glm::rotate(modelview, 30 * (float) dt, glm::vec3(0.5f, 1.0f, 0.0f));
+		normalmatrix = glm::transpose(glm::inverse(glm::mat3(modelview)));
+		program.setUniformMatrix("modelview", modelview);
+	program.setUniformMatrix("normalmatrix", normalmatrix);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		mesh.draw();
 		glFlush();
 		glfwSwapBuffers();

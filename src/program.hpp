@@ -15,7 +15,7 @@ public:
 	Program(std::vector<ShaderPtr> &shaders) throw(ProgramLinkException);
 	~Program();
 	void use();
-	GLuint getAttribLocation(const char *name);
+	void setAttribLocation(const char *name, GLuint location);
 	void setUniformMatrix(const char *name, glm::mat3 &matrix);
 	void setUniformMatrix(const char *name, glm::mat4 &matrix);
 
