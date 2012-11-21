@@ -5,10 +5,11 @@
 class Mesh
 {
 public:
-	Mesh();
+	Mesh(const char *filename);
 	~Mesh();
 	void draw();
 
 private:
 	GLuint vao, vbo, ibo;
+	int num_elements;
 };

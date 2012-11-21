@@ -1,7 +1,7 @@
 EXECUTABLE := DinoForts
 VPATH      += src
 CXXFLAGS   += -Wall -Werror
-LDFLAGS    += -Wall -Werror
+LDFLAGS    += -Wall -Werror -lpeng
 UNAME      := $(shell uname)
 
 include $(shell echo Makefile_$(UNAME))

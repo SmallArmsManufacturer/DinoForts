@@ -56,7 +56,7 @@ int main(int argc, const char *argv[])
 	program.setAttribLocation("in_Normal", 1);
 
 	// Set up the triangle vertex array
-	Mesh mesh;
+	Mesh mesh("test.peng");
 
 	// Set up the modelview and projection matrices
 	glm::mat4 projection = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 100.0f);
