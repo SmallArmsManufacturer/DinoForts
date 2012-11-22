@@ -84,3 +84,14 @@ void Program::setUniformMatrix(const char *name, glm::mat4 &matrix)
 	else
 		glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(matrix));
 }
+
+void Program::setUniform(const char *name, GLint value)
+{
+	use();
+
+	GLint uniform = glGetUniformLocation(id, name);
+	if (uniform == -1)
+		cerr << "Warning: No uniform named '" << name << "' found." << endl;
+	else
+		glUniform1i(uniform, value);
+}

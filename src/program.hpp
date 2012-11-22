@@ -18,6 +18,7 @@ public:
 	void setAttribLocation(const char *name, GLuint location);
 	void setUniformMatrix(const char *name, glm::mat3 &matrix);
 	void setUniformMatrix(const char *name, glm::mat4 &matrix);
+	void setUniform(const char *name, GLint value);
 
 private:
 	Program(const Program &);
