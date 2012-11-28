@@ -1,7 +1,7 @@
 #pragma once
 
-#include <memory>
 #include <stdexcept>
+#include <tr1/memory>
 #include "gl.hpp"
 
 class ShaderCompilationException : public std::exception {};
@@ -21,5 +21,5 @@ private:
 	GLuint id;
 };
 
-typedef std::shared_ptr<Shader> ShaderPtr;
-typedef std::weak_ptr<Shader> ShaderWeakPtr;
+typedef std::tr1::shared_ptr<Shader> ShaderPtr;
+typedef std::tr1::weak_ptr<Shader> ShaderWeakPtr;

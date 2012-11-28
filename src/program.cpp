@@ -11,9 +11,9 @@ Program::Program(vector<ShaderPtr> &shaders) throw(ProgramLinkException)
 	this->shaders = shaders;
 
 	// Attach the shaders
-	for (ShaderPtr shader : shaders)
+	for (vector<ShaderPtr>::iterator it = shaders.begin(); it != shaders.end(); ++it)
 	{
-		glAttachShader(id, shader->id);
+		glAttachShader(id, (*it)->id);
 	}
 
 	// Link the program
@@ -41,8 +41,8 @@ Program::Program(vector<ShaderPtr> &shaders) throw(ProgramLinkException)
 Program::~Program()
 {
 	// Detach the shaders
-	for (ShaderPtr shader : shaders)
-		glDetachShader(id, shader->id);
+	for (vector<ShaderPtr>::iterator it = shaders.begin(); it != shaders.end(); ++it)
+		glDetachShader(id, (*it)->id);
 
 	glDeleteProgram(id);
 }

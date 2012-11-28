@@ -1,2 +1,1 @@
-CXXFLAGS   += -std=c++11 -stdlib=libc++
-LDFLAGS    += -std=c++11 -stdlib=libc++ -framework OpenGL -lglfw
+LDFLAGS    += -framework OpenGL -lglfw

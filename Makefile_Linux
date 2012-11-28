@@ -1,2 +1,1 @@
-CXXFLAGS   += -std=c++0x
-LDFLAGS    += -std=c++0x $(shell pkg-config --cflags --libs gl libglfw)
+LDFLAGS    += $(shell pkg-config --cflags --libs gl libglfw)

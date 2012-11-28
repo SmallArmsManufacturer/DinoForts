@@ -1,8 +1,8 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <memory>
 #include <stdexcept>
+#include <tr1/memory>
 #include <vector>
 #include "gl.hpp"
 #include "shader.hpp"
@@ -28,5 +28,5 @@ private:
 	std::vector<ShaderPtr> shaders;
 };
 
-typedef std::shared_ptr<Program> ProgramPtr;
-typedef std::weak_ptr<Program> ProgramWeakPtr;
+typedef std::tr1::shared_ptr<Program> ProgramPtr;
+typedef std::tr1::weak_ptr<Program> ProgramWeakPtr;
